@@ -1,0 +1,109 @@
+swagger: '2.0'
+info:
+  description: >-
+    Pouch api server.
+    [c8112002/pouch-api](https://github.com/c8112002/pouch-api)
+  version: 1.0.0
+  title: Pouch API Server
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: c8112002@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+basePath: /v1
+tags:
+  - name: article
+    description: Everything about your Pets
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+  - name: comment
+    description: Access to Petstore orders
+  - name: tag
+    description: Operations about user
+    externalDocs:
+      description: Find out more about our store
+      url: 'http://swagger.io'
+schemes:
+  - http
+paths:
+  /articles:
+    get:
+      tags:
+        - article
+      summary: get articles
+      description: ''
+      operationId: getArticles
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          $ref: '#/definitions/Articles'
+        '405':
+          description: Invalid input
+      security:
+        - api_key: []
+  /article/{articleId}:
+    get:
+      tags:
+        - article
+      summary: get article
+      description: ''
+      operationId: getArticle
+      parameters:
+      - in: path
+        name: articleId
+        type: integer
+        required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          $ref: '#/definitions/Article'
+        '405':
+          description: Invalid input
+      security:
+        - api_key: []
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+definitions:
+  Articles:
+    type: array
+    items:
+      $ref: '#/definitions/Article'
+  Article:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      title:
+        type: string
+      url:
+        type: string
+      image_path:
+        type: string
+  Comment:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      body:
+        type: string
+  Tag:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
