@@ -1,4 +1,4 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   description: >-
     Pouch api server.
@@ -14,19 +14,14 @@ info:
 basePath: /v1
 tags:
   - name: article
-    description: Everything about your Pets
-    externalDocs:
-      description: Find out more
-      url: 'http://swagger.io'
+    description: Everything about Articles
   - name: comment
-    description: Access to Petstore orders
+    description: Everything about Comments
   - name: tag
-    description: Operations about user
-    externalDocs:
-      description: Find out more about our store
-      url: 'http://swagger.io'
+    description: Everything about Tags
 schemes:
   - http
+  - https
 paths:
   /articles:
     get:
@@ -41,7 +36,7 @@ paths:
         - application/json
       responses:
         '200':
-          $ref: '#/definitions/Articles'
+          $ref: '#/components/schemas/Articles'
         '405':
           description: Invalid input
       security:
@@ -64,7 +59,7 @@ paths:
         - application/json
       responses:
         '200':
-          $ref: '#/definitions/Article'
+          $ref: '#/components/schemas/Article'
         '405':
           description: Invalid input
       security:
@@ -74,36 +69,37 @@ securityDefinitions:
     type: apiKey
     name: api_key
     in: header
-definitions:
-  Articles:
-    type: array
-    items:
-      $ref: '#/definitions/Article'
-  Article:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      title:
-        type: string
-      url:
-        type: string
-      image_path:
-        type: string
-  Comment:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      body:
-        type: string
-  Tag:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      name:
-        type: string
+components:
+  schemas:
+    Articles:
+      type: array
+      items:
+        $ref: '#/components/schemas/Article'
+    Article:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        url:
+          type: string
+        image_path:
+          type: string
+    Comment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        body:
+          type: string
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
