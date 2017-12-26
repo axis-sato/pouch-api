@@ -27,16 +27,50 @@ paths:
     get:
       tags:
         - article
-      summary: get articles
+      summary: Return articles
       description: ''
-      operationId: getArticles
-      consumes:
-        - application/json
-      produces:
-        - application/json
       responses:
         '200':
-          $ref: '#/components/schemas/Articles'
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Articles'
+        '405':
+          description: Invalid input
+      security:
+        - api_key: []
+  /article:
+    post:
+      tags:
+        - article
+      summary: Post an article.
+      parameters:
+        - name: url
+          in: query
+          required: true
+          description: Article's url.
+          schema:
+            type : string
+        - name: tags
+          in: query
+          required: true
+          description: Tags related to a article.
+          schema:
+            type : array
+        - name: comment
+          in: query
+          required: false
+          description: Comment related to a article.
+          schema:
+            type : string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
         '405':
           description: Invalid input
       security:
@@ -45,21 +79,64 @@ paths:
     get:
       tags:
         - article
-      summary: get article
-      description: ''
-      operationId: getArticle
+      summary: Return an article.
       parameters:
-      - in: path
-        name: articleId
-        type: integer
-        required: true
-      consumes:
-        - application/json
-      produces:
-        - application/json
+        - name: articleId
+          in: path
+          required: true
+          description: Parameter description in CommonMark or HTML.
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
       responses:
         '200':
-          $ref: '#/components/schemas/Article'
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+        '405':
+          description: Invalid input
+      security:
+        - api_key: []
+  /article/{articleId}/comments:
+    get:
+      tags:
+        - comment
+      summary: Return an comments.
+      parameters:
+        - name: articleId
+          in: path
+          required: true
+          description: Parameter description in CommonMark or HTML.
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comments'
+        '405':
+          description: Invalid input
+      security:
+        - api_key: []
+  /tags:
+    get:
+      tags:
+        - tag
+      summary: Return tags
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tags'
         '405':
           description: Invalid input
       security:
@@ -87,6 +164,10 @@ components:
           type: string
         image_path:
           type: string
+    Comments:
+      type: array
+      items:
+        $ref: '#/components/schemas/Comment'
     Comment:
       type: object
       properties:
@@ -95,6 +176,10 @@ components:
           format: int64
         body:
           type: string
+    Tags:
+      type: array
+      items:
+        $ref: '#/components/schemas/Tag'
     Tag:
       type: object
       properties:
@@ -103,3 +188,6 @@ components:
           format: int64
         name:
           type: string
+        count:
+          type: integer
+          format: int64
