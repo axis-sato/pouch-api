@@ -1,0 +1,23 @@
+{
+  "name": "pouch-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/c8112002/pouch-api.git"
+  },
+  "author": "c8112002",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/c8112002/pouch-api/issues"
+  },
+  "homepage": "https://github.com/c8112002/pouch-api#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}

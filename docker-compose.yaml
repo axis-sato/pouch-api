@@ -8,3 +8,11 @@ services:
       API_URL: api.yaml
     ports:
       - "8080:8080"
+
+  api:
+    build:
+      context: .
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8000:8080"
