@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm i yarn -g \
+RUN npm i nodemon -g \
   && npm i
 # If you are building your code for production
 # RUN npm install --only=production
@@ -13,4 +13,4 @@ RUN npm i yarn -g \
 COPY . .
 
 EXPOSE 8080
-CMD [ "yarn", "run", "nodemon", "server.js" ]
+CMD [ "nodemon", "server.js" ]
