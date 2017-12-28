@@ -16,3 +16,22 @@ services:
       - ./api:/usr/src/app
     ports:
       - "8888:8080"
+    links:
+      - db:db
+  
+  db:
+    build:
+      context: ./db
+    volumes:
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db/init.d:/docker-entrypoint-initdb.d
+      - ./log/mysql:/var/log/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=pouch
+      - MYSQL_USER=pouch
+      - MYSQL_PASSWORD=secret
+    expose:
+      - 3306
+    ports:
+      - 33061:3306
