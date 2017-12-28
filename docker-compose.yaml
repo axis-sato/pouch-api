@@ -7,7 +7,7 @@ services:
     environment:
       API_URL: api.yaml
     ports:
-      - "8080:8080"
+      - "8880:8080"
 
   api:
     build:
@@ -15,4 +15,4 @@ services:
     volumes:
       - .:/usr/src/app
     ports:
-      - "8000:8080"
+      - "8888:8080"
