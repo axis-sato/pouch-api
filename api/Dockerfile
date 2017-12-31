@@ -4,8 +4,8 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm i nodemon -g \
-  && npm i
+RUN npm i yarn nodemon -g \
+  && yarn install
 # If you are building your code for production
 # RUN npm install --only=production
 
