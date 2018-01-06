@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "format": "prettier-eslint --write --ignore \"./**/node_modules/**\" \"./**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +20,8 @@
   "dependencies": {
     "express": "^4.16.2",
     "nodemon": "^1.14.3"
+  },
+  "devDependencies": {
+    "prettier-eslint-cli": "^4.7.0"
   }
 }
