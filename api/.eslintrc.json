@@ -1,0 +1,13 @@
+{
+  "extends": ["eslint:recommended", "plugin:node/recommended"],
+  "plugins": ["node"],
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "env": { "browser": true },
+  "globals": {},
+  "rules": {
+    "semi": ["error", "never"],
+    "no-console": "off"
+  }
+}

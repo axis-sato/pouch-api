@@ -1,10 +1,14 @@
 {
   "name": "pouch-api",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=8.0"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
-    "format": "prettier-eslint --write --ignore \"./**/node_modules/**\" \"./**/*.js\"",
+    "format":
+      "prettier-eslint --write --ignore \"./**/node_modules/**\" \"./**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,6 +26,7 @@
     "nodemon": "^1.14.3"
   },
   "devDependencies": {
+    "eslint-plugin-node": "^5.2.1",
     "prettier-eslint-cli": "^4.7.0"
   }
 }
