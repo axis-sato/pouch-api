@@ -13,4 +13,4 @@ RUN npm i yarn nodemon -g \
 COPY . .
 
 EXPOSE 8080
-CMD [ "nodemon", "server.js" ]
+CMD [ "nodemon", "app.js" ]

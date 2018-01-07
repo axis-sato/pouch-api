@@ -75,7 +75,7 @@ paths:
           description: Invalid input
       security:
         - api_key: []
-  /article/{articleId}:
+  /articles/{articleId}:
     get:
       tags:
         - article
@@ -100,7 +100,7 @@ paths:
           description: Invalid input
       security:
         - api_key: []
-  /article/{articleId}/comments:
+  /articles/{articleId}/comments:
     get:
       tags:
         - comment
