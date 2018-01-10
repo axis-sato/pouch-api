@@ -18,18 +18,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
         defaultValue: null
-      },
-      created_at: {
-        type: DataTypes.DATE,
-        allowNull: false
-      },
-      updated_at: {
-        type: DataTypes.DATE,
-        allowNull: false
       }
     },
     {
       tableName: "articles",
+      createdAt: "created_at",
+      updatedAt: "updated_at",
       classMethods: {
         associate: function(models) {
           // associations can be defined here
