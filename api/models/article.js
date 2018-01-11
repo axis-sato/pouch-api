@@ -6,18 +6,19 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER.UNSIGNED
       },
       title: {
-        type: DataTypes.STRING
+        allowNull: false,
+        type: DataTypes.STRING(45)
       },
       url: {
+        allowNull: false,
         type: DataTypes.STRING
       },
       image_path: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        defaultValue: null
+        defaultValue: null,
+        type: DataTypes.STRING
       }
     },
     {
