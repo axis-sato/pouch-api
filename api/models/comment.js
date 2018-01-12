@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const Article = sequelize.define(
-    "Article",
+  const Comment = sequelize.define(
+    "Comment",
     {
       id: {
         allowNull: false,
@@ -8,29 +8,32 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER.UNSIGNED
       },
-      title: {
+      article_id: {
         allowNull: false,
-        type: DataTypes.STRING(45)
+        type: DataTypes.INTEGER.UNSIGNED
       },
-      url: {
+      body: {
         allowNull: false,
-        type: DataTypes.STRING
-      },
-      image_path: {
-        defaultValue: null,
-        type: DataTypes.STRING
+        type: DataTypes.TEXT
       }
     },
     {
-      tableName: "articles",
+      tableName: "comments",
       createdAt: "created_at",
       updatedAt: "updated_at",
+      underscored: true,
       classMethods: {
         associate: models => {
-          models.Article.hasMany(models.Comment)
+          models.Comment.belongsTo(models.Article, {
+            onDelete: "CASCADE",
+            foreignKey: {
+              allowNull: false
+            }
+          })
         }
       }
     }
   )
-  return Article
+
+  return Comment
 }
