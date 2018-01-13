@@ -19,21 +19,18 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       tableName: "comments",
-      createdAt: "created_at",
-      updatedAt: "updated_at",
-      underscored: true,
-      classMethods: {
-        associate: models => {
-          models.Comment.belongsTo(models.Article, {
-            onDelete: "CASCADE",
-            foreignKey: {
-              allowNull: false
-            }
-          })
-        }
-      }
+      underscored: true
     }
   )
+
+  Comment.associate = models => {
+    Comment.belongsTo(models.Article, {
+      onDelete: "CASCADE",
+      foreignKey: {
+        allowNull: false
+      }
+    })
+  }
 
   return Comment
 }

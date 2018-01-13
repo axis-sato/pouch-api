@@ -23,14 +23,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       tableName: "articles",
-      createdAt: "created_at",
-      updatedAt: "updated_at",
-      classMethods: {
-        associate: models => {
-          models.Article.hasMany(models.Comment)
-        }
-      }
+      underscored: true
     }
   )
+
+  Article.associate = models => {
+    Article.hasMany(models.Comment, { as: "comments" })
+  }
+
   return Article
 }
