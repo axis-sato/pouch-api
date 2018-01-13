@@ -23,14 +23,5 @@ module.exports = (sequelize, DataTypes) => {
     }
   )
 
-  Comment.associate = models => {
-    Comment.belongsTo(models.Article, {
-      onDelete: "CASCADE",
-      foreignKey: {
-        allowNull: false
-      }
-    })
-  }
-
   return Comment
 }

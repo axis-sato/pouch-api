@@ -1,4 +1,3 @@
-"use strict"
 module.exports = (sequelize, DataTypes) => {
   var Tag = sequelize.define(
     "Tag",
@@ -16,13 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       tableName: "tags",
-      createdAt: "created_at",
-      updatedAt: "updated_at",
-      classMethods: {
-        associate: function(models) {
-          // associations can be defined here
-        }
-      }
+      underscored: true
     }
   )
   return Tag

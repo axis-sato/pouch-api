@@ -27,9 +27,5 @@ module.exports = (sequelize, DataTypes) => {
     }
   )
 
-  Article.associate = models => {
-    Article.hasMany(models.Comment, { as: "comments" })
-  }
-
   return Article
 }
