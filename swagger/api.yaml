@@ -15,8 +15,6 @@ basePath: /v1
 tags:
   - name: article
     description: Everything about Articles
-  - name: comment
-    description: Everything about Comments
   - name: tag
     description: Everything about Tags
 schemes:
@@ -40,11 +38,85 @@ paths:
           description: Invalid input
       security:
         - api_key: []
+  /articles/{articleId}:
+    get:
+      tags:
+        - article
+      summary: Return an article.
+      parameters:
+        - name: articleId
+          in: path
+          required: true
+          description: Parameter description in CommonMark or HTML.
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+        '405':
+          description: Invalid input
+      security:
+        - api_key: []
+    put:
+      tags:
+        - article
+      summary: 記事を編集する
+      parameters:
+        - name: url
+          in: query
+          required: true
+          description: Article's url.
+          schema:
+            type : string
+        - name: tags
+          in: query
+          required: true
+          description: Tags related to a article.
+          schema:
+            type : array
+        - name: comments
+          in: query
+          required: false
+          description: 記事.
+          schema:
+            type : array
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+        '405':
+          description: Invalid input
+      security:
+        - api_key: []
+    delete:
+      tags:
+        - article
+      summary: 記事を削除する
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+        '405':
+          description: Invalid input
+      security:
+        - api_key: []
   /article:
     post:
       tags:
         - article
-      summary: Post an article.
+      summary: 記事を作成する
       parameters:
         - name: url
           in: query
@@ -75,20 +147,18 @@ paths:
           description: Invalid input
       security:
         - api_key: []
-  /articles/{articleId}:
-    get:
+  /articles/{articleId}/read:
+    patch:
       tags:
         - article
-      summary: Return an article.
+      summary: 記事を既読/未読にする
       parameters:
-        - name: articleId
-          in: path
+        - name: read
+          in: query
           required: true
-          description: Parameter description in CommonMark or HTML.
+          description: "既読: true, 未読: false"
           schema:
-            type : integer
-            format: int64
-            minimum: 1
+            type : boolean
       responses:
         '200':
           description: OK
@@ -96,31 +166,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Article'
-        '405':
-          description: Invalid input
-      security:
-        - api_key: []
-  /articles/{articleId}/comments:
-    get:
-      tags:
-        - comment
-      summary: Return an comments.
-      parameters:
-        - name: articleId
-          in: path
-          required: true
-          description: Parameter description in CommonMark or HTML.
-          schema:
-            type : integer
-            format: int64
-            minimum: 1
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Comments'
         '405':
           description: Invalid input
       security:
@@ -164,6 +209,8 @@ components:
           type: string
         image_path:
           type: string
+        read:
+          type: boolean
     Comments:
       type: array
       items:
