@@ -295,6 +295,14 @@
           "read": {
             "type": "boolean"
           },
+          "tags": {
+            "type": "object",
+            "$ref": "#/components/schemas/Tags"
+          },
+          "comments": {
+            "type": "object",
+            "$ref": "#/components/schemas/Comments"
+          },
           "created_at": {
             "type": "string",
             "format": "date-time"
@@ -330,6 +338,18 @@
         }
       },
       "Tag": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "TagWithCount": {
         "type": "object",
         "properties": {
           "id": {
