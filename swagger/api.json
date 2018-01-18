@@ -271,9 +271,18 @@
   "components": {
     "schemas": {
       "Articles": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/Article"
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Article"
+            }
+          },
+          "cursors": {
+            "type": "object",
+            "$ref": "#/components/schemas/Cursors"
+          }
         }
       },
       "Article": {
@@ -360,6 +369,19 @@
             "type": "string"
           },
           "count": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "Cursors": {
+        "type": "object",
+        "properties": {
+          "previous": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "next": {
             "type": "integer",
             "format": "int64"
           }
