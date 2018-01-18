@@ -38,6 +38,30 @@
       "get": {
         "tags": ["article"],
         "summary": "Return articles",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "description": "取得件数",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": true,
+            "description": "カーソル(次に取得する先頭の記事ID)",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            }
+          }
+        ],
         "description": "",
         "responses": {
           "200": {
