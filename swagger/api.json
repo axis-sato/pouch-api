@@ -51,10 +51,10 @@
             }
           },
           {
-            "name": "cursor",
+            "name": "first_cursor",
             "in": "query",
             "required": true,
-            "description": "カーソル(次に取得する先頭の記事ID)",
+            "description": "カーソル(取得する先頭の記事ID)",
             "schema": {
               "type": "integer",
               "format": "int64",
