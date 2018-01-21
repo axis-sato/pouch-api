@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING
       },
+      read: {
+        allowNull: false,
+        type: DataTypes.TINYINT
+      },
       image_path: {
         defaultValue: null,
         type: DataTypes.STRING
