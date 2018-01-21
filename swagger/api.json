@@ -89,7 +89,7 @@
             "name": "articleId",
             "in": "path",
             "required": true,
-            "description": "Parameter description in CommonMark or HTML.",
+            "description": "article id",
             "schema": {
               "type": "integer",
               "format": "int64",
@@ -118,33 +118,58 @@
         "summary": "記事を編集する",
         "parameters": [
           {
-            "name": "url",
-            "in": "query",
+            "name": "articleId",
+            "in": "path",
             "required": true,
-            "description": "Article's url.",
+            "description": "article id",
             "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "tags",
-            "in": "query",
-            "required": true,
-            "description": "Tags related to a article.",
-            "schema": {
-              "type": "array"
-            }
-          },
-          {
-            "name": "comments",
-            "in": "query",
-            "required": false,
-            "description": "記事.",
-            "schema": {
-              "type": "array"
+              "type": "integer",
+              "format": "int64"
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "comments": {
+                    "type": "array",
+                    "nullable": true,
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "url": {
+                  "summary": "article's url",
+                  "value": "https://google.com"
+                },
+                "tags": {
+                  "summary": "article's tags",
+                  "valuel": ["tag1", "tag2"]
+                },
+                "comments": {
+                  "summary": "article's comments(markdown)",
+                  "valuel": ["#comment1 コメントだよ"]
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -166,14 +191,7 @@
         "summary": "記事を削除する",
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Article"
-                }
-              }
-            }
+            "description": "OK"
           },
           "405": {
             "description": "Invalid input"
@@ -187,33 +205,55 @@
         "summary": "記事を作成する",
         "parameters": [
           {
-            "name": "url",
-            "in": "query",
+            "name": "articleId",
+            "in": "path",
             "required": true,
-            "description": "Article's url.",
+            "description": "article id",
             "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "tags",
-            "in": "query",
-            "required": true,
-            "description": "Tags related to a article.",
-            "schema": {
-              "type": "array"
-            }
-          },
-          {
-            "name": "comment",
-            "in": "query",
-            "required": false,
-            "description": "Comment related to a article.",
-            "schema": {
-              "type": "string"
+              "type": "integer",
+              "format": "int64"
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "comment": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                }
+              },
+              "examples": {
+                "url": {
+                  "summary": "article's url",
+                  "value": "https://google.com"
+                },
+                "tags": {
+                  "summary": "article's tags",
+                  "valuel": ["tag1", "tag2"]
+                },
+                "comment": {
+                  "summary": "article's comment(markdown)",
+                  "valuel": "#comment1 コメントだよ"
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -237,15 +277,45 @@
         "summary": "記事を既読/未読にする",
         "parameters": [
           {
-            "name": "read",
-            "in": "query",
+            "name": "articleId",
+            "in": "path",
             "required": true,
-            "description": "既読: true, 未読: false",
+            "description": "article id",
             "schema": {
-              "type": "boolean"
+              "type": "integer",
+              "format": "int64"
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "read": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "examples": {
+                "url": {
+                  "summary": "article's url",
+                  "value": "https://google.com"
+                },
+                "tags": {
+                  "summary": "article's tags",
+                  "valuel": ["tag1", "tag2"]
+                },
+                "comment": {
+                  "summary": "article's comment(markdown)",
+                  "valuel": "#comment1 コメントだよ"
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK",
