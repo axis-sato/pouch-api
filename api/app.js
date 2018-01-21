@@ -8,7 +8,9 @@ const HOST = "0.0.0.0"
 const app = express()
 
 app.use(bodyParser.json())
-app.use("/articles", require("./routes/article"))
+
+const basePath = "/v1"
+app.use(`${basePath}/articles`, require("./routes/article"))
 
 app.listen(PORT, HOST)
 console.log(`Running on http://${HOST}:${PORT}`)
