@@ -2,7 +2,7 @@
   "extends": ["eslint:recommended", "plugin:node/recommended"],
   "plugins": ["node"],
   "parserOptions": {
-    "ecmaVersion": 6
+    "ecmaVersion": 8
   },
   "env": { "browser": true },
   "globals": {},
