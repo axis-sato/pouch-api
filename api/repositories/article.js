@@ -1,5 +1,6 @@
 const sequelize = require("sequelize")
 const models = require("../models")
+const Article = require("../eintities/article")
 
 module.exports = class ArticleRepository {
   constructor() {}
@@ -13,6 +14,6 @@ module.exports = class ArticleRepository {
       }
     )
 
-    return articles
+    return articles.map(article => new Article(article))
   }
 }
