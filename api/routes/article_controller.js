@@ -1,9 +1,9 @@
 const express = require("express")
 const router = express.Router()
-const ArticleService = require("../services/article")
+const ArticleService = require("../services/article_service")
 const { validationResult } = require("express-validator/check")
 const { matchedData } = require("express-validator/filter")
-const validator = require("../validators/article")
+const validator = require("../validators/article_validator")
 
 router.get("/", validator.articles, async (req, res) => {
   const errors = validationResult(req)

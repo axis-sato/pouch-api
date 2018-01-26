@@ -1,5 +1,5 @@
-const ArticleRepository = require("../repositories/article")
-const CommentRepository = require("../repositories/comment")
+const ArticleRepository = require("../repositories/article_repository")
+const CommentRepository = require("../repositories/comment_repository")
 
 module.exports = class ArticleService {
   constructor() {}
