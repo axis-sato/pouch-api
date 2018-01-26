@@ -1,7 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const logger = require("../logger")
-const ArticleRepository = require("../repositories/article")
+const ArticleService = require("../services/article")
 const { validationResult } = require("express-validator/check")
 const { matchedData } = require("express-validator/filter")
 const validator = require("../validators/article")
@@ -16,8 +15,8 @@ router.get("/", validator.articles, async (req, res) => {
   const limit = queryData.limit
   const firstCursor = queryData.first_cursor
 
-  const articleRepository = new ArticleRepository()
-  const articles = await articleRepository.getArticles(limit, firstCursor)
+  const articleService = new ArticleService()
+  const articles = await articleService.getArticles(limit, firstCursor)
   res.json(articles)
 })
 
