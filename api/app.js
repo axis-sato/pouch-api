@@ -11,6 +11,7 @@ app.use(bodyParser.json())
 
 const basePath = "/v1"
 app.use(`${basePath}/articles`, require("./routes/article_controller"))
+app.use(`${basePath}/tags`, require("./routes/tag_controller"))
 
 app.listen(PORT, HOST)
 console.log(`Running on http://${HOST}:${PORT}`)
