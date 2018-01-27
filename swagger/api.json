@@ -203,18 +203,6 @@
       "post": {
         "tags": ["article"],
         "summary": "記事を作成する",
-        "parameters": [
-          {
-            "name": "articleId",
-            "in": "path",
-            "required": true,
-            "description": "article id",
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
         "requestBody": {
           "required": true,
           "content": {
