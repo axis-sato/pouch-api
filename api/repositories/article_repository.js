@@ -49,7 +49,7 @@ module.exports = class ArticleRepository {
 
   async deleteArticle(id) {
     const sql = `
-    UPDATE articles SET deleted_at = CURRENT_TIMESTAMP WHERE id = :id
+    UPDATE articles SET deleted_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP WHERE id = :id
     `
 
     await models.sequelize.query(sql, {
