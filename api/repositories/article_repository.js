@@ -46,4 +46,15 @@ SELECT * FROM articles WHERE id >= :firstId LIMIT :limit
 
     return result
   }
+
+  async deleteArticle(id) {
+    const sql = `
+    UPDATE articles SET deleted_at = CURRENT_TIMESTAMP WHERE id = :id
+    `
+
+    await models.sequelize.query(sql, {
+      replacements: { id: id },
+      type: sequelize.QueryTypes.UPDATE
+    })
+  }
 }

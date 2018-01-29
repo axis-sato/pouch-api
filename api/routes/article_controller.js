@@ -40,4 +40,19 @@ router.patch("/:id/read", validator.update_read, async (req, res) => {
   res.json(article)
 })
 
+router.delete("/:id", validator.delete_article, async (req, res) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.mapped() })
+  }
+
+  const queryData = matchedData(req)
+  const id = queryData.id
+
+  const articleService = new ArticleService()
+  await articleService.deleteArticle(id)
+
+  res.json({})
+})
+
 module.exports = router

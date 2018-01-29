@@ -37,4 +37,9 @@ module.exports = class ArticleService {
     delete article.comments
     return article
   }
+
+  async deleteArticle(id) {
+    const articleRepository = new ArticleRepository()
+    await articleRepository.deleteArticle(id)
+  }
 }
