@@ -19,12 +19,19 @@ module.exports = {
     param("id")
       .exists()
       .isInt({ min: 1 })
-      .withMessage("limit must be integer (1 or more).")
+      .withMessage("id must be integer (1 or more).")
       .toInt(),
     body("read")
       .exists()
       .isBoolean()
       .withMessage("read must be boolean.")
       .toBoolean()
+  ],
+  delete_article: [
+    param("id")
+      .exists()
+      .isInt({ min: 1 })
+      .withMessage("id must be integer (1 or more).")
+      .toInt()
   ]
 }
