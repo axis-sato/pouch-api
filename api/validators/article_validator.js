@@ -1,7 +1,7 @@
-const { query } = require("express-validator/check")
+const { query, param, body } = require("express-validator/check")
 
 module.exports = {
-  articles: [
+  get_articles: [
     query("limit")
       .exists()
       .withMessage("limit is required.")
@@ -15,5 +15,16 @@ module.exports = {
       .withMessage("first_cursor must be integer (1 or more).")
       .toInt()
   ],
-  article: []
+  update_read: [
+    param("id")
+      .exists()
+      .isInt({ min: 1 })
+      .withMessage("limit must be integer (1 or more).")
+      .toInt(),
+    body("read")
+      .exists()
+      .isBoolean()
+      .withMessage("read must be boolean.")
+      .toBoolean()
+  ]
 }

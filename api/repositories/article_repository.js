@@ -16,4 +16,34 @@ SELECT * FROM articles WHERE id >= :firstId LIMIT :limit
 
     return articles.map(article => new Article(article))
   }
+
+  async getArticle(id) {
+    const sql = `
+    SELECT * FROM articles WHERE id = :id
+    `
+    const articles = await models.sequelize.query(sql, {
+      replacements: { id: id },
+      type: sequelize.QueryTypes.SELECT
+    })
+
+    if (articles.length === 0) {
+      return null
+    }
+
+    return new Article(articles[0])
+  }
+
+  async updateRead(id, read) {
+    const sql = `
+    UPDATE articles SET \`read\` = :read, updated_at = CURRENT_TIMESTAMP WHERE id = :id
+    `
+
+    const r = read ? 1 : 0
+    const result = await models.sequelize.query(sql, {
+      replacements: { id: id, read: r },
+      type: sequelize.QueryTypes.UPDATE
+    })
+
+    return result
+  }
 }

@@ -1,6 +1,7 @@
 const ArticleRepository = require("../repositories/article_repository")
 const CommentRepository = require("../repositories/comment_repository")
 const TagRepository = require("../repositories/tag_repository")
+const logger = require("../logger")
 
 module.exports = class ArticleService {
   constructor() {}
@@ -22,5 +23,18 @@ module.exports = class ArticleService {
       })
     )
     return articles
+  }
+
+  async updateRead(id, read) {
+    const articleRepository = new ArticleRepository()
+    const article = await articleRepository.getArticle(id)
+    if (article === null) {
+      return null
+    }
+    await articleRepository.updateRead(id, read)
+    article.read = read
+    delete article.tags
+    delete article.comments
+    return article
   }
 }

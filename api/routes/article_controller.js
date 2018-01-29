@@ -4,8 +4,9 @@ const ArticleService = require("../services/article_service")
 const { validationResult } = require("express-validator/check")
 const { matchedData } = require("express-validator/filter")
 const validator = require("../validators/article_validator")
+const logger = require("../logger")
 
-router.get("/", validator.articles, async (req, res) => {
+router.get("/", validator.get_articles, async (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.mapped() })
@@ -20,17 +21,23 @@ router.get("/", validator.articles, async (req, res) => {
   res.json(articles)
 })
 
-// router.get("/:id", async (req, res) => {
-//   const id = req.params.id
-//   const article = await models.sequelize.query(
-//     "SELECT * FROM articles WHERE id = :id ",
-//     {
-//       replacements: { id: id },
-//       type: sequelize.QueryTypes.SELECT
-//     }
-//   )
+router.patch("/:id/read", validator.update_read, async (req, res) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.mapped() })
+  }
 
-//   res.json(article)
-// })
+  const queryData = matchedData(req)
+  const id = queryData.id
+  const read = queryData.read
+
+  const articleService = new ArticleService()
+  const article = await articleService.updateRead(id, read)
+  if (article === null) {
+    return res.status(404).json({ errors: {} })
+  }
+
+  res.json(article)
+})
 
 module.exports = router
