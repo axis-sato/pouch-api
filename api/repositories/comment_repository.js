@@ -8,7 +8,7 @@ module.exports = class CommentRepository {
 
   async getCommentsByArticleId(article_id) {
     const sql = `
-      SELECT * FROM comments WHERE article_id = :article_id
+      SELECT * FROM comments WHERE article_id = :article_id AND deleted_at is NULL
       `
     const comments = await models.sequelize.query(sql, {
       replacements: { article_id: article_id },

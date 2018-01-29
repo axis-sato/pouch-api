@@ -7,7 +7,7 @@ module.exports = class ArticleRepository {
 
   async getArticles(limit, firstCursor) {
     const sql = `
-SELECT * FROM articles WHERE id >= :firstId LIMIT :limit
+    SELECT * FROM articles WHERE id >= :firstId AND deleted_at is NULL LIMIT :limit
     `
     const articles = await models.sequelize.query(sql, {
       replacements: { limit: limit, firstId: firstCursor },
@@ -19,7 +19,7 @@ SELECT * FROM articles WHERE id >= :firstId LIMIT :limit
 
   async getArticle(id) {
     const sql = `
-    SELECT * FROM articles WHERE id = :id
+    SELECT * FROM articles WHERE id = :id AND deleted_at is NULL
     `
     const articles = await models.sequelize.query(sql, {
       replacements: { id: id },

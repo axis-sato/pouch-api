@@ -15,6 +15,7 @@ module.exports = class TagRepository {
 	    INNER JOIN article_tags AS inner_article_tags ON t.id = inner_article_tags.tag_id
     ) AS tags
     INNER JOIN article_tags ON tags.id = article_tags.tag_id
+    WHERE tags.deleted_at is NULL
     GROUP BY tags.id
     ORDER BY count desc, tags.updated_at, tags.id desc;
     `
@@ -36,6 +37,7 @@ module.exports = class TagRepository {
       AND article_id = :article_id
     ) AS tags
     INNER JOIN article_tags ON tags.id = article_tags.tag_id
+    WHERE tags.deleted_at is NULL
     GROUP BY tags.id
     ORDER BY tags.updated_at desc, tags.id desc;
     `
