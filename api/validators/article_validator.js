@@ -15,6 +15,25 @@ module.exports = {
       .withMessage("first_cursor must be integer (1 or more).")
       .toInt()
   ],
+  update_article: [
+    param("id")
+      .exists()
+      .isInt({ min: 1 })
+      .withMessage("id must be integer (1 or more).")
+      .toInt(),
+    body("url")
+      .exists()
+      .isURL()
+      .withMessage("url must be URL format."),
+    body("tags")
+      .exists()
+      .custom(value => Array.isArray(value))
+      .withMessage("tags must be array."),
+    body("comments")
+      .exists()
+      .custom(value => Array.isArray(value))
+      .withMessage("comments must be array.")
+  ],
   update_read: [
     param("id")
       .exists()
