@@ -9,18 +9,8 @@ module.exports = {
         コメントだよ〜`
       },
       {
-        article_id: 1,
-        body: `# コメント2
-        コメントだよ〜`
-      },
-      {
-        article_id: 1,
-        body: `# コメント3
-        コメントだよ〜`
-      },
-      {
         article_id: 2,
-        body: `# コメント
+        body: `# コメント2
         コメントだよ〜`
       }
     ])
