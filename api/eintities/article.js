@@ -1,5 +1,5 @@
 module.exports = class Article {
-  constructor(article, tags = null, comments = null) {
+  constructor(article, tags = null, comment = null) {
     this.id = article.id
     this.title = article.title
     this.url = article.url
@@ -8,6 +8,6 @@ module.exports = class Article {
     this.created_at = article.created_at
     this.updated_at = article.updated_at
     this.tags = tags
-    this.comments = comments
+    this.comment = comment
   }
 }
