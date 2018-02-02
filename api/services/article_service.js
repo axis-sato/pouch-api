@@ -25,17 +25,17 @@ module.exports = class ArticleService {
     return articles
   }
 
-  async updateArticle(id, url, tags, comments) {
+  async updateArticle(id, url, tags, comment) {
     const articleRepository = new ArticleRepository()
     const article = await articleRepository.getArticle(id)
     if (article === null) {
       return null
     }
 
-    await articleRepository.updateArticle(id, url, tags, comments)
+    await articleRepository.updateArticle(id, url, tags, comment)
     article.url = url
     article.tags = tags
-    article.comments = comments
+    article.comment = comment
     return article
   }
 
@@ -48,7 +48,7 @@ module.exports = class ArticleService {
     await articleRepository.updateRead(id, read)
     article.read = read
     delete article.tags
-    delete article.comments
+    delete article.comment
     return article
   }
 
