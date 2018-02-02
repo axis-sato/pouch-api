@@ -4,6 +4,7 @@ services:
     image: swaggerapi/swagger-ui
     volumes:
       - ./swagger/api.yaml:/usr/share/nginx/html/api.yaml
+      - ./swagger/api_simple.yaml:/usr/share/nginx/html/api_simple.yaml
     environment:
       API_URL: api.yaml
     ports:
