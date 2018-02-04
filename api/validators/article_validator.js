@@ -29,10 +29,7 @@ module.exports = {
       .exists()
       .custom(value => Array.isArray(value))
       .withMessage("tags must be array."),
-    body("comments")
-      .exists()
-      .custom(value => Array.isArray(value))
-      .withMessage("comments must be array.")
+    body("comment").exists()
   ],
   update_read: [
     param("id")

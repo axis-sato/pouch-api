@@ -21,7 +21,7 @@ router.get("/", validator.get_articles, async (req, res) => {
   res.json(articles)
 })
 
-router.put("/:id", validator.update_article, (req, res) => {
+router.put("/:id", validator.update_article, async (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.mapped() })
@@ -29,14 +29,14 @@ router.put("/:id", validator.update_article, (req, res) => {
 
   const queryData = matchedData(req)
   const id = queryData.id
+  const url = queryData.url
   const tags = queryData.tags
-  const comments = queryData.comments
+  const comment = queryData.comment
 
-  logger.debug(id)
-  logger.debug(tags)
-  logger.debug(comments)
+  const articleService = new ArticleService()
+  const article = await articleService.updateArticle(id, url, tags, comment)
 
-  res.json({})
+  res.json(article)
 })
 
 router.patch("/:id/read", validator.update_read, async (req, res) => {

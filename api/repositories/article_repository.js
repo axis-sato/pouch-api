@@ -33,6 +33,23 @@ module.exports = class ArticleRepository {
     return new Article(articles[0])
   }
 
+  async updateArticle(id, url, tags, comment) {
+    const sql = `
+    UPDATE articles 
+    LEFT JOIN comments ON articles.id = comments.article_id
+    SET 
+    url = :url, 
+    body = :comment, 
+    articles.updated_at = CURRENT_TIMESTAMP,
+    comments.updated_at = CURRENT_TIMESTAMP
+    WHERE id = :id
+    `
+    await models.sequelize.query(sql, {
+      replacements: { id: id, url: url, comment: comment },
+      type: sequelize.QueryTypes.UPDATE
+    })
+  }
+
   async updateRead(id, read) {
     const sql = `
     UPDATE articles SET \`read\` = :read, updated_at = CURRENT_TIMESTAMP WHERE id = :id
