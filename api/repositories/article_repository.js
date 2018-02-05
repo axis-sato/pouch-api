@@ -50,6 +50,21 @@ module.exports = class ArticleRepository {
     })
   }
 
+  async updateComment(id, comment) {
+    const sql = `
+    INSERT INTO comments (article_id, body) VALUES (:id, :comment)
+    ON DUPLICATE KEY UPDATE 
+    article_id=VALUES(article_id), body=VALUES(body), updated_at=CURRENT_TIMESTAMP
+    `
+
+    const result = await models.sequelize.query(sql, {
+      replacements: { id: id, comment: comment },
+      type: sequelize.QueryTypes.UPDATE
+    })
+
+    return result
+  }
+
   async updateRead(id, read) {
     const sql = `
     UPDATE articles SET \`read\` = :read, updated_at = CURRENT_TIMESTAMP WHERE id = :id

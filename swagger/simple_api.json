@@ -76,20 +76,6 @@
         }
       }
     },
-    "/articles/{articleId}": {
-      "delete": {
-        "tags": ["article"],
-        "summary": "記事を削除する",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "405": {
-            "description": "Invalid input"
-          }
-        }
-      }
-    },
     "/article": {
       "post": {
         "tags": ["article"],
@@ -298,6 +284,20 @@
                 }
               }
             }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/articles/{articleId}": {
+      "delete": {
+        "tags": ["article"],
+        "summary": "記事を削除する",
+        "responses": {
+          "200": {
+            "description": "OK"
           },
           "405": {
             "description": "Invalid input"

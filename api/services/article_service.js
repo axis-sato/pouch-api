@@ -39,6 +39,17 @@ module.exports = class ArticleService {
     return article
   }
 
+  async updateComment(id, comment) {
+    const articleRepository = new ArticleRepository()
+    const article = await articleRepository.getArticle(id)
+    if (article === null) {
+      return null
+    }
+    await articleRepository.updateComment(id, comment)
+    article.comment = comment
+    return article
+  }
+
   async updateRead(id, read) {
     const articleRepository = new ArticleRepository()
     const article = await articleRepository.getArticle(id)
