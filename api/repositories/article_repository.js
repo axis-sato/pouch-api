@@ -1,6 +1,9 @@
 const sequelize = require("sequelize")
 const models = require("../models")
 const Article = require("../eintities/article")
+const TagRepository = require("./tag_repository")
+const CommentRepository = require("./comment_repository")
+const logger = require("../logger")
 
 module.exports = class ArticleRepository {
   constructor() {}
@@ -17,9 +20,10 @@ module.exports = class ArticleRepository {
     return articles.map(article => new Article(article))
   }
 
-  async getArticle(id) {
+  async getArticle(id, with_tags = true, with_comment = true) {
     const sql = `
-    SELECT * FROM articles WHERE id = :id AND deleted_at is NULL
+    SELECT * FROM articles 
+    WHERE articles.id = :id AND articles.deleted_at is NULL
     `
     const articles = await models.sequelize.query(sql, {
       replacements: { id: id },
@@ -30,7 +34,15 @@ module.exports = class ArticleRepository {
       return null
     }
 
-    return new Article(articles[0])
+    const article = articles[0]
+    const tags = with_tags
+      ? await new TagRepository().getTagsByArticleId(article.id)
+      : null
+    const comment = with_comment
+      ? await new CommentRepository().getCommentByArticleId(article.id)
+      : null
+
+    return new Article(article, tags, comment)
   }
 
   async updateArticle(id, url, tags, comment) {

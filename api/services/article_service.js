@@ -39,6 +39,42 @@ module.exports = class ArticleService {
     return article
   }
 
+  async updateTags(id, tag_names) {
+    const articleRepository = new ArticleRepository()
+    const article = await articleRepository.getArticle(id)
+    if (article === null) {
+      return null
+    }
+
+    const tagRepository = new TagRepository()
+
+    // insert into tags if needed
+    const tags = await Promise.all(
+      tag_names.map(async tag_name => {
+        const tag = await tagRepository.getTagByName(tag_name)
+        if (tag !== null) {
+          return tag
+        }
+
+        await tagRepository.addTag(tag_name)
+        return await tagRepository.getTagByName(tag_name)
+      })
+    )
+
+    const tag_ids = tags.map(tag => tag.id)
+
+    // insert into article_tags
+    for (let tag_id of tag_ids) {
+      await tagRepository.addTags(id, tag_id)
+    }
+
+    // delete from article_tags
+    await tagRepository.deleteTags(id, tag_ids)
+
+    article.tags = tags
+    return article
+  }
+
   async updateComment(id, comment) {
     const articleRepository = new ArticleRepository()
     const article = await articleRepository.getArticle(id)
@@ -58,8 +94,6 @@ module.exports = class ArticleService {
     }
     await articleRepository.updateRead(id, read)
     article.read = read
-    delete article.tags
-    delete article.comment
     return article
   }
 

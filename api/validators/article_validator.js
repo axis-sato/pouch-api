@@ -31,6 +31,17 @@ module.exports = {
       .withMessage("tags must be array."),
     body("comment").exists()
   ],
+  update_tags: [
+    param("id")
+      .exists()
+      .isInt({ min: 1 })
+      .withMessage("id must be integer (1 or more).")
+      .toInt(),
+    body("tags")
+      .exists()
+      .custom(value => Array.isArray(value))
+      .withMessage("tags must be array.")
+  ],
   update_comment: [
     param("id")
       .exists()

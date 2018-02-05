@@ -27,6 +27,76 @@ module.exports = class TagRepository {
     return tags.map(tag => new Tag(tag))
   }
 
+  async getTagByName(name) {
+    const sql = `
+    SELECT * FROM tags WHERE name = :name AND deleted_at is NULL
+    `
+
+    const tags = await models.sequelize.query(sql, {
+      replacements: { name: name },
+      type: sequelize.QueryTypes.SELECT
+    })
+
+    if (tags.length === 0) {
+      return null
+    }
+
+    return new Tag(tags[0])
+  }
+
+  async addTag(name) {
+    const sql = `
+    INSERT INTO tags (name) VALUES (:name)
+    ON DUPLICATE KEY UPDATE 
+    deleted_at=NULL, updated_at=CURRENT_TIMESTAMP
+    `
+
+    const result = await models.sequelize.query(sql, {
+      replacements: { name: name },
+      type: sequelize.QueryTypes.UPDATE
+    })
+
+    return result
+  }
+
+  async addTags(article_id, tag_id) {
+    const sql = `
+    INSERT IGNORE INTO article_tags (article_id, tag_id) 
+    VALUES(:article_id, :tag_id)
+    `
+
+    const result = await models.sequelize.query(sql, {
+      replacements: {
+        article_id: article_id,
+        tag_id: tag_id
+      },
+      type: sequelize.QueryTypes.DELETE
+    })
+
+    return result
+  }
+
+  async deleteTags(article_id, ignore_tag_ids) {
+    let sql = `DELETE FROM article_tags`
+    let additionalSql = ` WHERE`
+    if (ignore_tag_ids.length > 0) {
+      additionalSql += ` article_tags.tag_id NOT IN (:ignore_tag_ids) AND`
+    }
+    additionalSql += ` article_tags.article_id = :article_id;`
+
+    sql += additionalSql
+
+    const result = await models.sequelize.query(sql, {
+      replacements: {
+        article_id: article_id,
+        ignore_tag_ids: ignore_tag_ids
+      },
+      type: sequelize.QueryTypes.DELETE
+    })
+
+    return result
+  }
+
   async getTagsByArticleId(article_id) {
     const sql = `
     SELECT tags.*, count(tags.id) as count

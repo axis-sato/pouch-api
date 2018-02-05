@@ -39,6 +39,25 @@ router.get("/", validator.get_articles, async (req, res) => {
 //   res.json(article)
 // })
 
+router.patch("/:id/tags", validator.update_tags, async (req, res) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.mapped() })
+  }
+
+  const queryData = matchedData(req)
+  const id = queryData.id
+  const tags = queryData.tags
+
+  const articleService = new ArticleService()
+  const article = await articleService.updateTags(id, tags)
+  if (article === null) {
+    return res.status(404).json({ errors: {} })
+  }
+
+  res.json(article)
+})
+
 router.patch("/:id/comment", validator.update_comment, async (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
