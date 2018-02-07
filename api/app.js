@@ -10,7 +10,8 @@ const app = express()
 app.use(bodyParser.json())
 
 const basePath = "/v1"
-app.use(`${basePath}/articles`, require("./routes/article_controller"))
+app.use(`${basePath}/articles`, require("./routes/articles_controller"))
+app.use(`${basePath}/article`, require("./routes/article_controller"))
 app.use(`${basePath}/tags`, require("./routes/tag_controller"))
 
 app.listen(PORT, HOST)

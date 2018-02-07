@@ -15,6 +15,12 @@ module.exports = {
       .withMessage("first_cursor must be integer (1 or more).")
       .toInt()
   ],
+  create_article: [
+    body("url")
+      .exists()
+      .isURL()
+      .withMessage("url must be URL format.")
+  ],
   update_article: [
     param("id")
       .exists()

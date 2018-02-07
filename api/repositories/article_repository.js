@@ -20,6 +20,19 @@ module.exports = class ArticleRepository {
     return articles.map(article => new Article(article))
   }
 
+  async createArticle(title, url, image_path) {
+    const sql = `
+    INSERT INTO  articles (title, url, image_path)
+    VALUES (:title, :url, :image_path)
+    `
+    const result = await models.sequelize.query(sql, {
+      replacements: { title: title, url: url, image_path: image_path },
+      type: sequelize.QueryTypes.INSERT
+    })
+
+    return result[0]
+  }
+
   async getArticle(id, with_tags = true, with_comment = true) {
     const sql = `
     SELECT * FROM articles 

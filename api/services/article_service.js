@@ -1,6 +1,7 @@
 const ArticleRepository = require("../repositories/article_repository")
 const CommentRepository = require("../repositories/comment_repository")
 const TagRepository = require("../repositories/tag_repository")
+const CrawlerService = require("./crawler_service")
 const logger = require("../logger")
 
 module.exports = class ArticleService {
@@ -23,6 +24,21 @@ module.exports = class ArticleService {
       })
     )
     return articles
+  }
+
+  async createArticle(_url) {
+    const crawlerService = new CrawlerService()
+    const { title, url, image_path } = await crawlerService.fetchArticle(_url)
+
+    const articleRepository = new ArticleRepository()
+    const article_id = await articleRepository.createArticle(
+      title,
+      url,
+      image_path
+    )
+
+    const article = await articleRepository.getArticle(article_id)
+    return article
   }
 
   async updateArticle(id, url, tags, comment) {
