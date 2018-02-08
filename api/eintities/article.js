@@ -3,7 +3,7 @@ module.exports = class Article {
     this.id = article.id
     this.title = article.title
     this.url = article.url
-    this.image_path = article.url
+    this.image_path = article.image_path
     this.read = article.read === 1
     this.created_at = article.created_at
     this.updated_at = article.updated_at
