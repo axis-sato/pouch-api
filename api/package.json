@@ -8,13 +8,11 @@
   "main": "index.js",
   "scripts": {
     "precommit": "lint-staged",
-    "format": "prettier-eslint --write --ignore \"./**/node_modules/**\" \"./**/*.js\""
+    "format":
+      "prettier-eslint --write --ignore \"./**/node_modules/**\" \"./**/*.js\""
   },
   "lint-staged": {
-    "*.js": [
-      "prettier-eslint --write",
-      "git add"
-    ]
+    "*.js": ["prettier-eslint --write", "eslint", "git add"]
   },
   "repository": {
     "type": "git",
