@@ -6,16 +6,12 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
   && echo $TZ > /etc/timezone
 
 WORKDIR /usr/src/app
-
-COPY package*.json ./
-
-RUN npm i yarn nodemon -g \
-  && yarn install
-# If you are building your code for production
-# RUN npm install --only=production
-
-# Bundle app source
 COPY . .
 
+RUN npm i yarn -g \
+  && yarn install
+# If you are building your code for production
+# RUN yarn install --prod
+
 EXPOSE 8080
-CMD [ "nodemon", "app.js" ]
+CMD [ "yarn", "run", "dev" ]

@@ -7,12 +7,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon app.js",
     "precommit": "lint-staged",
-    "format":
-      "prettier-eslint --write --ignore \"./**/node_modules/**\" \"./**/*.js\""
+    "format": "prettier-eslint --write --ignore \"./**/node_modules/**\" \"./**/*.js\""
   },
   "lint-staged": {
-    "*.js": ["prettier-eslint --write", "eslint", "git add"]
+    "*.js": [
+      "prettier-eslint --write",
+      "eslint",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -34,7 +38,6 @@
     "express-validator": "^4.3.0",
     "morgan": "^1.9.0",
     "mysql2": "^1.5.1",
-    "nodemon": "^1.14.3",
     "sequelize": "^4.29.2",
     "sequelize-cli": "^3.2.0"
   },
@@ -42,6 +45,7 @@
     "eslint-plugin-node": "^5.2.1",
     "husky": "^0.14.3",
     "lint-staged": "^6.0.0",
+    "nodemon": "^1.15.1",
     "prettier-eslint-cli": "^4.7.0"
   }
 }
