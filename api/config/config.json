@@ -1,5 +1,5 @@
 {
-  "dev": {
+  "development": {
     "username": "pouch",
     "password": "secret",
     "database": "pouch",
