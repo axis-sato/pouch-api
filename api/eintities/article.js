@@ -1,5 +1,5 @@
 module.exports = class Article {
-  constructor(article, tags = null, comment = null) {
+  constructor (article, tags = null, comment = null) {
     this.id = article.id
     this.title = article.title
     this.url = article.url

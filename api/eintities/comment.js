@@ -1,5 +1,5 @@
 module.exports = class Comment {
-  constructor(comment) {
+  constructor (comment) {
     this.id = comment.id
     this.body = comment.body
     this.created_at = comment.created_at

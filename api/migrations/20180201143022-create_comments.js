@@ -1,4 +1,4 @@
-const tableName = "comments"
+const tableName = 'comments'
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -6,11 +6,11 @@ module.exports = {
       article_id: {
         primaryKey: true,
         type: Sequelize.INTEGER.UNSIGNED,
-        onDelete: "CASCADE",
+        onDelete: 'CASCADE',
         allowNull: false,
         references: {
-          model: "articles",
-          key: "id"
+          model: 'articles',
+          key: 'id'
         }
       },
       body: {
@@ -19,7 +19,7 @@ module.exports = {
       },
       updated_at: {
         allowNull: false,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         type: Sequelize.DATE
       }
     })

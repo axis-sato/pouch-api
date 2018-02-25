@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   var Tag = sequelize.define(
-    "Tag",
+    'Tag',
     {
       id: {
         allowNull: false,
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     {
-      tableName: "tags",
+      tableName: 'tags',
       underscored: true
     }
   )

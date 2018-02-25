@@ -1,18 +1,15 @@
-const sequelize = require("sequelize")
-const models = require("../models")
-const Tag = require("../eintities/tag")
-const logger = require("../logger")
+const sequelize = require('sequelize')
+const models = require('../models')
+const Tag = require('../eintities/tag')
 
 module.exports = class TagRepository {
-  constructor() {}
-
-  async getTags() {
+  async getTags () {
     const sql = `
     SELECT tags.*, count(tags.id) as count
     FROM(
-	   SELECT t.* 
-	    FROM tags as t
-	    INNER JOIN article_tags AS inner_article_tags ON t.id = inner_article_tags.tag_id
+      SELECT t.* 
+      FROM tags as t
+      INNER JOIN article_tags AS inner_article_tags ON t.id = inner_article_tags.tag_id
     ) AS tags
     INNER JOIN article_tags ON tags.id = article_tags.tag_id
     WHERE tags.deleted_at is NULL
@@ -27,7 +24,7 @@ module.exports = class TagRepository {
     return tags.map(tag => new Tag(tag))
   }
 
-  async getTagByName(name) {
+  async getTagByName (name) {
     const sql = `
     SELECT * FROM tags WHERE name = :name AND deleted_at is NULL
     `
@@ -44,7 +41,7 @@ module.exports = class TagRepository {
     return new Tag(tags[0])
   }
 
-  async addTag(name) {
+  async addTag (name) {
     const sql = `
     INSERT INTO tags (name) VALUES (:name)
     ON DUPLICATE KEY UPDATE 
@@ -59,7 +56,7 @@ module.exports = class TagRepository {
     return result
   }
 
-  async addTags(article_id, tag_id) {
+  async addTags (article_id, tag_id) {
     const sql = `
     INSERT IGNORE INTO article_tags (article_id, tag_id) 
     VALUES(:article_id, :tag_id)
@@ -76,7 +73,7 @@ module.exports = class TagRepository {
     return result
   }
 
-  async deleteTags(article_id, ignore_tag_ids) {
+  async deleteTags (article_id, ignore_tag_ids) {
     let sql = `DELETE FROM article_tags`
     let additionalSql = ` WHERE`
     if (ignore_tag_ids.length > 0) {
@@ -97,7 +94,7 @@ module.exports = class TagRepository {
     return result
   }
 
-  async getTagsByArticleId(article_id) {
+  async getTagsByArticleId (article_id) {
     const sql = `
     SELECT tags.*, count(tags.id) as count
     FROM(

@@ -1,14 +1,11 @@
-const sequelize = require("sequelize")
-const models = require("../models")
-const Article = require("../eintities/article")
-const TagRepository = require("./tag_repository")
-const CommentRepository = require("./comment_repository")
-const logger = require("../logger")
+const sequelize = require('sequelize')
+const models = require('../models')
+const Article = require('../eintities/article')
+const TagRepository = require('./tag_repository')
+const CommentRepository = require('./comment_repository')
 
 module.exports = class ArticleRepository {
-  constructor() {}
-
-  async getArticles(limit, firstCursor) {
+  async getArticles (limit, firstCursor) {
     const sql = `
     SELECT * FROM articles 
     WHERE id <= :firstId 
@@ -24,20 +21,20 @@ module.exports = class ArticleRepository {
     return articles.map(article => new Article(article))
   }
 
-  async createArticle(title, url, image_path) {
+  async createArticle (title, url, imagePath) {
     const sql = `
     INSERT INTO  articles (title, url, image_path)
     VALUES (:title, :url, :image_path)
     `
     const result = await models.sequelize.query(sql, {
-      replacements: { title: title, url: url, image_path: image_path },
+      replacements: { title: title, url: url, image_path: imagePath },
       type: sequelize.QueryTypes.INSERT
     })
 
     return result[0]
   }
 
-  async getArticle(id, with_tags = true, with_comment = true) {
+  async getArticle (id, withTags = true, withComment = true) {
     const sql = `
     SELECT * FROM articles 
     WHERE articles.id = :id AND articles.deleted_at is NULL
@@ -52,17 +49,17 @@ module.exports = class ArticleRepository {
     }
 
     const article = articles[0]
-    const tags = with_tags
+    const tags = withTags
       ? await new TagRepository().getTagsByArticleId(article.id)
       : null
-    const comment = with_comment
+    const comment = withComment
       ? await new CommentRepository().getCommentByArticleId(article.id)
       : null
 
     return new Article(article, tags, comment)
   }
 
-  async updateArticle(id, url, tags, comment) {
+  async updateArticle (id, url, tags, comment) {
     const sql = `
     UPDATE articles 
     LEFT JOIN comments ON articles.id = comments.article_id
@@ -79,7 +76,7 @@ module.exports = class ArticleRepository {
     })
   }
 
-  async updateComment(id, comment) {
+  async updateComment (id, comment) {
     const sql = `
     INSERT INTO comments (article_id, body) VALUES (:id, :comment)
     ON DUPLICATE KEY UPDATE 
@@ -94,7 +91,7 @@ module.exports = class ArticleRepository {
     return result
   }
 
-  async updateRead(id, read) {
+  async updateRead (id, read) {
     const sql = `
     UPDATE articles SET \`read\` = :read, updated_at = CURRENT_TIMESTAMP WHERE id = :id
     `
@@ -108,7 +105,7 @@ module.exports = class ArticleRepository {
     return result
   }
 
-  async deleteArticle(id) {
+  async deleteArticle (id) {
     const sql = `
     UPDATE articles SET deleted_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP WHERE id = :id
     `

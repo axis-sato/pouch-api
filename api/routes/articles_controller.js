@@ -1,12 +1,11 @@
-const express = require("express")
+const express = require('express')
 const router = express.Router()
-const ArticleService = require("../services/article_service")
-const { validationResult } = require("express-validator/check")
-const { matchedData } = require("express-validator/filter")
-const validator = require("../validators/article_validator")
-const logger = require("../logger")
+const ArticleService = require('../services/article_service')
+const { validationResult } = require('express-validator/check')
+const { matchedData } = require('express-validator/filter')
+const validator = require('../validators/article_validator')
 
-router.get("/", validator.get_articles, async (req, res) => {
+router.get('/', validator.get_articles, async (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.mapped() })
@@ -21,7 +20,7 @@ router.get("/", validator.get_articles, async (req, res) => {
   res.json(articles)
 })
 
-router.post("/article", validator.create_article, async (req, res) => {
+router.post('/article', validator.create_article, async (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.mapped() })
@@ -54,7 +53,7 @@ router.post("/article", validator.create_article, async (req, res) => {
 //   res.json(article)
 // })
 
-router.patch("/:id/tags", validator.update_tags, async (req, res) => {
+router.patch('/:id/tags', validator.update_tags, async (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.mapped() })
@@ -73,7 +72,7 @@ router.patch("/:id/tags", validator.update_tags, async (req, res) => {
   res.json(article)
 })
 
-router.patch("/:id/comment", validator.update_comment, async (req, res) => {
+router.patch('/:id/comment', validator.update_comment, async (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.mapped() })
@@ -92,7 +91,7 @@ router.patch("/:id/comment", validator.update_comment, async (req, res) => {
   res.json(article)
 })
 
-router.patch("/:id/read", validator.update_read, async (req, res) => {
+router.patch('/:id/read', validator.update_read, async (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.mapped() })
@@ -111,7 +110,7 @@ router.patch("/:id/read", validator.update_read, async (req, res) => {
   res.json(article)
 })
 
-router.delete("/:id", validator.delete_article, async (req, res) => {
+router.delete('/:id', validator.delete_article, async (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.mapped() })

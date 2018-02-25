@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Article = sequelize.define(
-    "Article",
+    'Article',
     {
       id: {
         allowNull: false,
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     {
-      tableName: "articles",
+      tableName: 'articles',
       underscored: true
     }
   )

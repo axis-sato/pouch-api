@@ -1,9 +1,7 @@
-const TagRepository = require("../repositories/tag_repository")
+const TagRepository = require('../repositories/tag_repository')
 
 module.exports = class TagService {
-  constructor() {}
-
-  getTags() {
+  getTags () {
     const tagRepository = new TagRepository()
     return tagRepository.getTags()
   }

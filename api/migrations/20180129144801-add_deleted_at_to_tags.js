@@ -1,12 +1,12 @@
-const tableName = "tags"
-const columnName = "deleted_at"
+const tableName = 'tags'
+const columnName = 'deleted_at'
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn(tableName, columnName, {
       type: Sequelize.DATE,
       defaultValue: null,
-      after: "updated_at"
+      after: 'updated_at'
     })
   },
 

@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("comments", {
+    return queryInterface.createTable('comments', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -9,11 +9,11 @@ module.exports = {
       },
       article_id: {
         type: Sequelize.INTEGER.UNSIGNED,
-        onDelete: "CASCADE",
+        onDelete: 'CASCADE',
         allowNull: false,
         references: {
-          model: "articles",
-          key: "id"
+          model: 'articles',
+          key: 'id'
         }
       },
       body: {
@@ -22,17 +22,17 @@ module.exports = {
       },
       created_at: {
         allowNull: false,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         type: Sequelize.DATE
       },
       updated_at: {
         allowNull: false,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         type: Sequelize.DATE
       }
     })
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("comments")
+    return queryInterface.dropTable('comments')
   }
 }

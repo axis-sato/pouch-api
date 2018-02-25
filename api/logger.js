@@ -1,13 +1,13 @@
-const bunyan = require("bunyan")
-const PrettyStream = require("bunyan-prettystream")
-require("dotenv").config()
+const bunyan = require('bunyan')
+const PrettyStream = require('bunyan-prettystream')
+require('dotenv').config()
 
 const baseOpts = {
-  name: "pouch-api"
+  name: 'pouch-api'
 }
 
 const opts = env => {
-  if (env === "dev") {
+  if (env === 'dev') {
     const prettyStdOut = new PrettyStream()
     prettyStdOut.pipe(process.stdout)
 
@@ -15,8 +15,8 @@ const opts = env => {
       src: true,
       streams: [
         {
-          level: "debug",
-          type: "raw",
+          level: 'debug',
+          type: 'raw',
           stream: prettyStdOut
         }
       ]

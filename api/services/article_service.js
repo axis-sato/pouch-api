@@ -1,13 +1,10 @@
-const ArticleRepository = require("../repositories/article_repository")
-const CommentRepository = require("../repositories/comment_repository")
-const TagRepository = require("../repositories/tag_repository")
-const CrawlerService = require("./crawler_service")
-const logger = require("../logger")
+const ArticleRepository = require('../repositories/article_repository')
+const CommentRepository = require('../repositories/comment_repository')
+const TagRepository = require('../repositories/tag_repository')
+const CrawlerService = require('./crawler_service')
 
 module.exports = class ArticleService {
-  constructor() {}
-
-  async getArticles(limit, firstCursor) {
+  async getArticles (limit, firstCursor) {
     const articleRepository = new ArticleRepository()
     const commentRepository = new CommentRepository()
     const tagRepository = new TagRepository()
@@ -26,22 +23,22 @@ module.exports = class ArticleService {
     return articles
   }
 
-  async createArticle(_url) {
+  async createArticle (_url) {
     const crawlerService = new CrawlerService()
-    const { title, url, image_path } = await crawlerService.fetchArticle(_url)
+    const { title, url, imagePath } = await crawlerService.fetchArticle(_url)
 
     const articleRepository = new ArticleRepository()
-    const article_id = await articleRepository.createArticle(
+    const articleId = await articleRepository.createArticle(
       title,
       url,
-      image_path
+      imagePath
     )
 
-    const article = await articleRepository.getArticle(article_id)
+    const article = await articleRepository.getArticle(articleId)
     return article
   }
 
-  async updateArticle(id, url, tags, comment) {
+  async updateArticle (id, url, tags, comment) {
     const articleRepository = new ArticleRepository()
     const article = await articleRepository.getArticle(id)
     if (article === null) {
@@ -55,7 +52,7 @@ module.exports = class ArticleService {
     return article
   }
 
-  async updateTags(id, tag_names) {
+  async updateTags (id, tagNames) {
     const articleRepository = new ArticleRepository()
     const article = await articleRepository.getArticle(id)
     if (article === null) {
@@ -66,32 +63,32 @@ module.exports = class ArticleService {
 
     // insert into tags if needed
     const tags = await Promise.all(
-      tag_names.map(async tag_name => {
-        const tag = await tagRepository.getTagByName(tag_name)
+      tagNames.map(async tagName => {
+        const tag = await tagRepository.getTagByName(tagName)
         if (tag !== null) {
           return tag
         }
 
-        await tagRepository.addTag(tag_name)
-        return await tagRepository.getTagByName(tag_name)
+        await tagRepository.addTag(tagName)
+        return await tagRepository.getTagByName(tagName)
       })
     )
 
-    const tag_ids = tags.map(tag => tag.id)
+    const tagIds = tags.map(tag => tag.id)
 
     // insert into article_tags
-    for (let tag_id of tag_ids) {
-      await tagRepository.addTags(id, tag_id)
+    for (let tagId of tagIds) {
+      await tagRepository.addTags(id, tagId)
     }
 
     // delete from article_tags
-    await tagRepository.deleteTags(id, tag_ids)
+    await tagRepository.deleteTags(id, tagIds)
 
     article.tags = tags
     return article
   }
 
-  async updateComment(id, comment) {
+  async updateComment (id, comment) {
     const articleRepository = new ArticleRepository()
     const article = await articleRepository.getArticle(id)
     if (article === null) {
@@ -102,7 +99,7 @@ module.exports = class ArticleService {
     return article
   }
 
-  async updateRead(id, read) {
+  async updateRead (id, read) {
     const articleRepository = new ArticleRepository()
     const article = await articleRepository.getArticle(id)
     if (article === null) {
@@ -113,7 +110,7 @@ module.exports = class ArticleService {
     return article
   }
 
-  async deleteArticle(id) {
+  async deleteArticle (id) {
     const articleRepository = new ArticleRepository()
     await articleRepository.deleteArticle(id)
   }

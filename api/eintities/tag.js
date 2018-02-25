@@ -1,5 +1,5 @@
 module.exports = class Tag {
-  constructor(tag) {
+  constructor (tag) {
     this.id = tag.id
     this.name = tag.name
     this.count = tag.count

@@ -1,16 +1,16 @@
-const tableName = "tags"
+const tableName = 'tags'
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert(tableName, [
       {
-        name: "tag1"
+        name: 'tag1'
       },
       {
-        name: "tag2"
+        name: 'tag2'
       },
       {
-        name: "tag3"
+        name: 'tag3'
       }
     ])
   },

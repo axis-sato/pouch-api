@@ -1,4 +1,4 @@
-const tableName = "article_tags"
+const tableName = 'article_tags'
 
 module.exports = {
   up: (queryInterface, Sequelize) => {

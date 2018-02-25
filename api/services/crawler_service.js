@@ -1,10 +1,8 @@
-const Crawler = require("crawler")
-const logger = require("../logger")
+const Crawler = require('crawler')
+const logger = require('../logger')
 
 module.exports = class CrawlerService {
-  constructor() {}
-
-  fetchArticle(url) {
+  fetchArticle (url) {
     return new Promise((resolve, reject) => {
       const callback = (error, res, done) => {
         if (error) {
@@ -12,13 +10,13 @@ module.exports = class CrawlerService {
           reject(error)
         } else {
           const $ = res.$
-          const title = $("title").text()
-          const image_path =
-            $("meta[property='og:image']").attr("content") || null
+          const title = $('title').text()
+          const imagePath =
+            $("meta[property='og:image']").attr('content') || null
           resolve({
             title: title,
             url: url,
-            image_path: image_path
+            imagePath: imagePath
           })
         }
         done()

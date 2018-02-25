@@ -1,5 +1,5 @@
-const tableName = "articles"
-const columnName = "read"
+const tableName = 'articles'
+const columnName = 'read'
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -7,7 +7,7 @@ module.exports = {
       type: Sequelize.TINYINT,
       allowNull: false,
       defaultValue: 0,
-      after: "url"
+      after: 'url'
     })
   },
 

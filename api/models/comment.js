@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Comment = sequelize.define(
-    "Comment",
+    'Comment',
     {
       id: {
         allowNull: false,
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     {
-      tableName: "comments",
+      tableName: 'comments',
       underscored: true
     }
   )
