@@ -70,7 +70,7 @@ module.exports = class ArticleService {
         }
 
         await tagRepository.addTag(tagName)
-        return await tagRepository.getTagByName(tagName)
+        return tagRepository.getTagByName(tagName)
       })
     )
 
