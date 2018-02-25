@@ -3,7 +3,7 @@ const path = require('path')
 const Sequelize = require('sequelize')
 const basename = path.basename(__filename)
 const env = process.env.NODE_ENV || 'dev'
-const baseConfig = require(path.resolve(__dirname, '/../config/config.json'))[env]
+const baseConfig = require(path.resolve(__dirname, '../config/config.json'))[env]
 const db = {}
 
 const config = Object.assign(baseConfig, { timezone: 'Asia/Tokyo' })
