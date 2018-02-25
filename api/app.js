@@ -8,7 +8,6 @@ const HOST = '0.0.0.0'
 const app = express()
 
 // CORS対応
-require('./logger').debug(process.env.NODE_ENV)
 if (process.env.NODE_ENV === 'development') {
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
