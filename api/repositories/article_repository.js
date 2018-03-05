@@ -6,15 +6,19 @@ const CommentRepository = require('./comment_repository')
 
 module.exports = class ArticleRepository {
   async getArticles (limit, firstCursor) {
-    const sql = `
-    SELECT * FROM articles 
-    WHERE id <= :firstId 
-    AND deleted_at is NULL 
+    require('../logger').error(firstCursor)
+    let sql = 'SELECT * FROM articles WHERE '
+    let replacements = { limit: limit }
+    if (firstCursor) {
+      sql += 'id <= :firstId AND '
+      replacements.firstId = firstCursor
+    }
+    sql += `deleted_at is NULL 
     ORDER BY id desc
     LIMIT :limit
     `
     const articles = await models.sequelize.query(sql, {
-      replacements: { limit: limit, firstId: firstCursor },
+      replacements: replacements,
       type: sequelize.QueryTypes.SELECT
     })
 
